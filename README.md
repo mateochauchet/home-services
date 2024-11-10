@@ -1,5 +1,6 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+
 ## Getting Started
 
 First, run the development server:
@@ -34,3 +35,42 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Mobile Usage
+
+### Add Capacitor Platforms
+
+If this is your first time running the project on a native platform, add the Android and iOS platforms:
+
+```bash
+npx cap add android
+npx cap add ios
+```
+
+### Sync Changes
+
+Each time you make changes to your project, run the following command to sync the files with the native platforms:
+
+```bash
+npx cap sync
+```
+
+### Open in Android Studio or Xcode
+
+To test the application on an emulator or device, open the project in Android Studio or Xcode:
+
+#### Android:
+```bash
+npx cap open android
+```
+
+#### iOS:
+```bash
+npx cap open ios
+```
+
+From Android Studio or Xcode, you can build and run the application on an emulator or a real device.
+
+### Build and Test on Physical Devices
+
+To test on real devices, connect your device to your computer and use the build options in Android Studio or Xcode.
