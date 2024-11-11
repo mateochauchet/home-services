@@ -12,3 +12,84 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// Models
+
+// User
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  phone        String?
+  userType     UserType
+  createdAt    DateTime      @default(now())
+  professional Professional?
+
+  @@map("user")
+}
+
+enum UserType {
+  CLIENT
+  PROFESSIONAL
+}
+
+// Professioinal
+model Professional {
+  id              Int                   @id @default(autoincrement())
+  userId          Int                   @unique
+  user            User                  @relation(fields: [userId], references: [id])
+  location        String
+  contactWhatsApp String?
+  contactPhone    String?
+  rating          Float?
+  createdAt       DateTime              @default(now())
+  services        ProfessionalService[]
+  images          Image[]
+  coverPhoto      String?
+
+  @@map("professional")
+}
+
+model Image {
+  id             Int          @id @default(autoincrement())
+  url            String
+  professionalId Int
+  professional   Professional @relation(fields: [professionalId], references: [id])
+  createdAt      DateTime     @default(now())
+
+  @@map("image")
+}
+
+// Category
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  services    Service[]
+
+  @@map("category")
+}
+
+// Service
+model Service {
+  id            Int                   @id @default(autoincrement())
+  name          String
+  description   String?
+  categoryId    Int
+  category      Category              @relation(fields: [categoryId], references: [id])
+  professionals ProfessionalService[]
+
+  @@map("service")
+}
+
+// Professional - Service
+model ProfessionalService {
+  id             Int          @id @default(autoincrement())
+  professionalId Int
+  serviceId      Int
+  professional   Professional @relation(fields: [professionalId], references: [id])
+  service        Service      @relation(fields: [serviceId], references: [id])
+
+  @@unique([professionalId, serviceId])
+  @@map("professional_service")
+}
