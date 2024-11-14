@@ -1,7 +1,4 @@
-import { NextResponse } from "next/server";
-import serviceService from "./service.service";
-
+import { getCategoriesWithtServices } from "@/backend/controllers/service.controller";
 export async function GET() {
-  const services = await serviceService.getAllServices();
-  return NextResponse.json(services);
+  return await getCategoriesWithtServices();
 }
