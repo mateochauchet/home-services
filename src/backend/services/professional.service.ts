@@ -3,9 +3,17 @@ import { ProfessionalRepository } from "../repositories";
 
 const professionalRepository = new ProfessionalRepository();
 
-const getAllProfessionals = async (): Promise<Professional[]> => {
+interface ProfessionalFilters {
+  location?: string;
+  serviceId?: number;
+  minRating?: number;
+}
+
+const getAllProfessionals = async (
+  filters: ProfessionalFilters = {}
+): Promise<Professional[]> => {
   try {
-    return await professionalRepository.findAll();
+    return await professionalRepository.findAll(filters);
   } catch (error) {
     throw error;
   }
