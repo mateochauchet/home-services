@@ -4,9 +4,7 @@ import { ProfessionalRepository } from "../repositories";
 const professionalRepository = new ProfessionalRepository();
 
 interface ProfessionalFilters {
-  location?: string;
   serviceId?: number;
-  minRating?: number;
 }
 
 const getAllProfessionals = async (

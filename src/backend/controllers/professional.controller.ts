@@ -7,12 +7,8 @@ const getProfessionals = async (request: NextRequest) => {
     const searchParams = request.nextUrl.searchParams;
 
     const filters = {
-      location: searchParams.get("location") || undefined,
       serviceId: searchParams.has("serviceId")
         ? parseInt(searchParams.get("serviceId")!, 10)
-        : undefined,
-      minRating: searchParams.has("minRating")
-        ? parseFloat(searchParams.get("minRating")!)
         : undefined,
     };
 
