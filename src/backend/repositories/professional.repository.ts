@@ -1,12 +1,20 @@
 import { prisma } from "@/backend/db/prisma";
 import { Professional } from "@prisma/client";
 
+interface ProfessionalFilters {
+  serviceId?: number;
+}
+
 export class ProfessionalRepository {
-  async findAll(): Promise<Professional[]> {
+  async findAll(filters: ProfessionalFilters = {}): Promise<Professional[]> {
+    const { serviceId } = filters;
     try {
       return prisma.professional.findMany({
         include: {
           user: true,
+        },
+        where: {
+          ...(serviceId && { services: { some: { serviceId } } }),
         },
       });
     } catch (error) {

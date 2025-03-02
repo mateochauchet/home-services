@@ -1,10 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { professionalService } from "../services";
 import { handleHttpError } from "./utils";
 
-const getProfessionals = async () => {
+const getProfessionals = async (request: NextRequest) => {
   try {
-    const result = await professionalService.getAllProfessionals();
+    const searchParams = request.nextUrl.searchParams;
+
+    const filters = {
+      serviceId: searchParams.has("serviceId")
+        ? parseInt(searchParams.get("serviceId")!, 10)
+        : undefined,
+    };
+
+    const result = await professionalService.getAllProfessionals(filters);
 
     return NextResponse.json(result);
   } catch (error) {
